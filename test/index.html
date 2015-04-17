@@ -1,1 +1,102 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+<title>Hello World</title>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="jquery-1.9.js"></script>
+<style type="text/css">
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: gray;
+	color: white;
+}
+
+div#fullpage {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0px solid red;
+	text-align: center;
+	vertical-align: middle;
+}
+
+button {
+	font-size: 18px;
+}
+</style>
+</head>
+<body onload="onLoad()">
+	<script>
+    function onLoad() {
+        if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
+            document.addEventListener('deviceready', initApp, false);
+        } else {
+            initApp();
+        }
+    }
+
+    //var adid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
+    
+    function initApp() {
+    	if (! LLPay ) { alert( 'lianlianpay plugin not ready' ); return; }
+    	
+        var defaultOptions = {
+            isTesting: true, // set to true, to receiving test ad for testing purpose
+        };
+        LLPay.setOptions( defaultOptions );
+        registerAdEvents();
+    }
+    // optional, in case respond to events or handle error
+    function registerAdEvents() {
+        document.addEventListener('onLLPayEnd', function(e){ 
+        	var ret = e.ret;
+        	alert('onLLPayEnd: ' + JSON.stringify(ret));
+        });
+    }
+	function startPay() {
+		var argsExample = {
+				"oid_partner":"201103171000000000",
+				"dt_order":"20130515094013",
+				"no_order":"2013051500001",
+				"busi_partner":"101001",
+				"name_goods":"羽毛球",
+				"info_order":"用户13958069593购买羽毛球3桶",
+				"money_order":"210.97",
+				"notify_url":"http://payhttp.xiaofubao.com/xxx/back.shtml",
+				"pay_type":"2",
+				"bank_code":"01020000",
+				"force_bank":"1",
+				"sign_type":"RSA",
+				"valid_order":"30",
+				"sign":"ZPZULntRpJwFmGNIVKwjLEF2Tze7bqs60rxQ22CqT5J1UlvGo575QK9z/" +
+				"+p+7E9cOoRoWzqR6xHZ6WVv3dloyGKDR0btvrdqPgUAoeaX/YOWzTh00vwcQ+HBtXE+vP" +
+				"TfAqjCTxiiSJEOY7ATCF1q7iP3sfQxhS0nDUug1LP3OLk="
+		};
+		
+		argsExample.card_no = $('input#card_no').val();
+		
+		LLPay.startPay(argsExample, function(){
+			
+		}, function(){
+			
+		});
+	}
+    </script>
+	<div id="fullpage">
+		<p>Demo for LLPay Plugin</p>
+		<p><label for="card_no">Card No.</label><input type="text" id="card_no" value="6225123412341234"/></p>
+		<button onclick="startPay();">Start Pay</button>
+
+	</div>
+</body>
+</html>

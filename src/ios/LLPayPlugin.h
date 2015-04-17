@@ -9,7 +9,7 @@
 
 - (void) setOptions:(CDVInvokedUrlCommand *)command;
 
-- (void)startLLPay:(CDVInvokedUrlCommand *)command;
+- (void) startPay:(CDVInvokedUrlCommand *)command;
 
 @property (assign) BOOL isTesting;
 @property (assign) BOOL logVerbose;

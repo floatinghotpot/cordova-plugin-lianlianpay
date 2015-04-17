@@ -24,7 +24,7 @@ public class LLPayPlugin extends CordovaPluginExt {
 	
     /** Cordova Actions. */
 	public static final String ACTION_SET_OPTIONS = "setOptions";
-	public static final String ACTION_START_LLPAY = "startLLPay";
+	public static final String ACTION_START_PAY = "startPay";
 
     /* options */
     public static final String OPT_IS_TESTING = "isTesting";
@@ -46,10 +46,10 @@ public class LLPayPlugin extends CordovaPluginExt {
             this.setOptions(options);
             result = new PluginResult(Status.OK);
             
-        } else if (ACTION_START_LLPAY.equals(action)) {
+        } else if (ACTION_START_PAY.equals(action)) {
             JSONObject args = inputs.optJSONObject(0);
         	
-        	boolean isOk = this.startLLPay( args );
+        	boolean isOk = this.startPay( args );
         	result = new PluginResult(isOk ? Status.OK : Status.ERROR);
             
         } else {
@@ -69,6 +69,8 @@ public class LLPayPlugin extends CordovaPluginExt {
 	}
 	
     public void setOptions(JSONObject options) {
+    	Log.d(LOGTAG, "setOptions" );
+    	
     	if(options != null) {
     		if(options.has(OPT_IS_TESTING)) this.isTesting = options.optBoolean(OPT_IS_TESTING);
     		if(options.has(OPT_LOG_VERBOSE)) this.logVerbose = options.optBoolean(OPT_LOG_VERBOSE);
@@ -94,8 +96,8 @@ public class LLPayPlugin extends CordovaPluginExt {
         return "";
     }
 	
-	public boolean startLLPay(JSONObject args) {
-    	Log.d(LOGTAG, "startLLPay" );
+	public boolean startPay(JSONObject args) {
+    	Log.d(LOGTAG, "startPay" );
     	
     	String content4Pay = args.toString();
     	MobileSecurePayer msp = new MobileSecurePayer();
@@ -109,7 +111,8 @@ public class LLPayPlugin extends CordovaPluginExt {
             String strRet = (String) msg.obj;
             switch (msg.what) {
                 case Constants.RQF_PAY: {
-                	fireEvent("LLPay","onLLPayEnd", strRet);
+                	Log.d(LOGTAG, "onLLPayEnd: " + strRet );
+                	fireEvent("LLPay","onLLPayEnd", "{\"ret\":"+strRet+"}");
                 	
                     //JSONObject objContent = BaseHelper.string2JSON(strRet);
                 	//fireEvent("LLPay","onLLPayEnd",objContent.toString());

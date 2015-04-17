@@ -40,8 +40,8 @@ var argsExample = {
 };
 */
 
-llpayExport.startLLPay = function(args, successCallback, failureCallback) {
-	  if(typeof options === 'object') {
+llpayExport.startPay = function(args, successCallback, failureCallback) {
+	  if(typeof args === 'object') {
 			cordova.exec( successCallback, failureCallback, 'LLPay', 'startPay', [ args ] );
 	  } else {
 		  if(typeof failureCallback === 'function') {

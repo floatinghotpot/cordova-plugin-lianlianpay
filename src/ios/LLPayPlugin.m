@@ -46,10 +46,11 @@
 }
 
 
-- (void) startLLPay:(CDVInvokedUrlCommand *)command {
-    NSLog(@"startLLPay");
+- (void) startPay:(CDVInvokedUrlCommand *)command {
+    NSLog(@"startPay");
     
-    NSDictionary* signedDict = nil;
+    NSDictionary* signedDict = [command argumentAtIndex:0 withDefault:[NSNull null]];
+    
     [self.sdk presentPaySdkInViewController:[self getViewController]
                              withTraderInfo:signedDict];
     
@@ -60,9 +61,11 @@
     
     NSError * err;
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:&err];
-    NSString * jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSString * ret = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
-    [self fireEvent:[self __getProductShortName] event:@"onLLPayEnd" withData:jsonStr];
+    [self fireEvent:[self __getProductShortName]
+              event:@"onLLPayEnd"
+           withData:[NSString stringWithFormat:@"{\"ret\":%@}", ret]];
 }
 
 - (NSString*) md5:(NSString*) str
