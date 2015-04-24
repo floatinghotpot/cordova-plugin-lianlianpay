@@ -114,7 +114,7 @@ basePage{}
 #LLToast_pay{ll_goodds_info:购买%1$s元的%2$s}
 
 /*支付显示方式*/
-#LLPay-Style{style:quickPay}//quickPay，verifyPay
+#LLPay-Style{style:verifyPay}//quickPay，verifyPay
 
 
 /*去掉横屏支持*/

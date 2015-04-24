@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define LL_PAY_SDK_OUT_VERSION  @"2.3.3_141217"
-
 typedef enum LLPayResult {
     kLLPayResultSuccess = 0,    // 支付成功
     kLLPayResultFail = 1,       // 支付失败
@@ -60,14 +58,21 @@ memo                        支付备注
 - (void)presentVerifyPaySdkInViewController:(UIViewController*)viewController withTraderInfo:(NSDictionary*)traderInfo;
 
 
+//sdk认证签约入口
+- (void)presentVerifyPaySignInViewController:(UIViewController *)viewContoller withTraderInfo:(NSDictionary*)traderInfo;
+
 @property (nonatomic, assign) NSObject<LLPaySdkDelegate> *sdkDelegate;
 
-@property (nonatomic, retain) NSString *user_id; // 用户在商户的用户号
 
++ (void)switchToTestServer:(BOOL)isTestServer;
 // 切换正式、测试服务器，YES测试环境，NO正式环境。默认不调用是正式环境，请不要随意使用该函数切换至测试环境
-+ (void)switchToTestServer:(BOOL)isTestServer; 
 
-+ (void)setVerifyPayState:(BOOL)isVerifyPay; // 切换认证支付、快捷支付， YES认证，NO快捷。默认不调用是根据包的配置。
++ (void)setVerifyPayState:(BOOL)isVerifyPay;
+// 切换认证支付、快捷支付， YES认证，NO快捷。默认不调用是根据包的配置。(该函数将在后面版本被setLLsdkPayState替代，此处只是为了兼容老用户)
 
-+ (void)setADView:(UIView *)view; // 在sdk标题栏下面设定一个广告条或者操作指南bar
++ (void)setLLsdkPayState:(int)payState;
+//认证支付、快捷支付、预授权切换，0快捷 1认证 2预授权。默认不调用是根据包的配置
+
++ (void)setADView:(UIView *)view;
+// 在sdk标题栏下面设定一个广告条或者操作指南bar
 @end

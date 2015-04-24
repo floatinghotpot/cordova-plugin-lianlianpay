@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -106,16 +107,23 @@ public class LLPayPlugin extends CordovaPluginExt {
     	return bRet;
 	}
 	
+	public void firePayEndEvent(final String strRet) {
+	    final Activity activity = getActivity();
+	    activity.runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+            	Log.d(LOGTAG, "onLLPayEnd: " + strRet );
+            	fireEvent("LLPay","onLLPayEnd", "{\"ret\":"+strRet+"}");
+            }
+	    });
+	}
+	
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             String strRet = (String) msg.obj;
             switch (msg.what) {
                 case Constants.RQF_PAY: {
-                	Log.d(LOGTAG, "onLLPayEnd: " + strRet );
-                	fireEvent("LLPay","onLLPayEnd", "{\"ret\":"+strRet+"}");
-                	
-                    //JSONObject objContent = BaseHelper.string2JSON(strRet);
-                	//fireEvent("LLPay","onLLPayEnd",objContent.toString());
+                	firePayEndEvent( strRet );
                 }
                 break;
             }
