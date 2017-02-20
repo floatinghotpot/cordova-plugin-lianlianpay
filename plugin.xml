@@ -2,8 +2,8 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	id="com.rjfun.cordova.lianlianpay"
-	version="0.9.2">
+	id="cordova-plugin-lianlianpay"
+	version="0.9.3">
       
     <name>LianLian Pay Cordova Plugin</name>
 	<description>Cordova/PhoneGap plugin for LianLian Pay</description>
@@ -21,7 +21,7 @@
         <clobbers target="window.LLPay" />
     </js-module>
 
-	<dependency id="com.rjfun.cordova.extension" />
+	<dependency id="cordova-plugin-extension" />
 	
     <!-- android -->
     <platform name="android">
@@ -55,6 +55,7 @@
                 <param name="android-package" value="com.rjfun.cordova.lianlianpay.LLPayPlugin"/>
             </feature>
         </config-file>
+        <source-file src="src/android/LLPayPlugin.java" target-dir="src/com/rjfun/cordova/lianlianpay" />
         
         <source-file src="src/android/Base64.java" target-dir="src/com/yintong/pay/utils" />
         <source-file src="src/android/BaseHelper.java" target-dir="src/com/yintong/pay/utils" />
@@ -68,7 +69,6 @@
         <source-file src="src/android/Rsa.java" target-dir="src/com/yintong/pay/utils" />
         
         <source-file src="src/android/securepay-lib.jar" target-dir="libs" />
-        <source-file src="src/android/cordova-llpay.jar" target-dir="libs" />
         
      </platform>
      
@@ -80,7 +80,7 @@
              </feature>
          </config-file>
          <header-file src="src/ios/LLPayPlugin.h"/>
-         <source-file src="src/ios/cordova-llpay.a" framework="true"/>
+         <source-file src="src/ios/LLPayPlugin.m"/>
          
          <header-file src="src/ios/LLPaySdk.h"/>
          <source-file src="src/ios/libPaySdkColor.a" framework="true" compiler-flags="-force_load"/>

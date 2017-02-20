@@ -1,0 +1,33 @@
+{
+  "name": "cordova-plugin-lianlianpay",
+  "version": "0.9.3",
+  "description": "Cordova/PhoneGap plugin for LianLian Pay",
+  "cordova": {
+    "id": "cordova-plugin-lianlianpay",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/floatinghotpot/cordova-plugin-lianlianpay.git"
+  },
+  "bugs": {
+    "url": "https://github.com/floatinghotpot/cordova-plugin-lianlianpay/issues"
+  },
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "pay",
+    "payment",
+    "lianlianpay",
+    "llpay",
+    "rjfun"
+  ],
+  "author": {
+    "name": "Raymond Xie",
+    "email": "rjfun.mobile@gmail.com"
+  },
+  "license": "MIT"
+}
